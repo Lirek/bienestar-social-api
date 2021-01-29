@@ -21,17 +21,18 @@ class SaludEstudianteController extends Controller
 
     public function create()
     {
-        return Estudiante::select('id','names','lastnames','cedula')
-            ->orderBy('id','DESC')
-            ->get();
+        $estudiante = Estudiante::select('id','names','lastnames','cedula','cedula_tipo')
+            ->orderBy('created_at','DESC')
+            ->get()->first();
+
+        return view('admin.salud.create', compact('estudiante'));
     }
 
     public function store(Request $request)
     {
         $salud = new Salud_estudiante();
         $salud->fill($request->all())->save();
-        return response()->json(
-            ['message'=>'Condiciones de salud registradas satisfactoriamente', 'data'=>$salud]);
+        return redirect('sociofamiliar/create')->with('message', 'Condiciones de salud registradas satisfactoriamente');
     }
 
     public function show($id)

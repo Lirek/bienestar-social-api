@@ -21,12 +21,14 @@ class SocioFamiliarController extends Controller
 
     public function create()
     {
-        return Estudiante::select('id','names','lastnames','cedula')
-            ->orderBy('id','DESC')
-            ->get();
+        $estudiante = Estudiante::select('id','names','lastnames','cedula','cedula_tipo')
+            ->orderBy('created_at','DESC')
+            ->get()->first();
+
+        return view('admin.sociofamiliar.create', compact('estudiante'));
     }
 
-    public function store(Request $request)
+    public function store(SocioFamiliarRequest $request)
     {
         $sf = new Socio_familiar();
         $sf->fill($request->all())->save();

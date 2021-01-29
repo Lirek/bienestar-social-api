@@ -49,3 +49,4 @@ Route::resource('trabajadorsocial', 'TrabajadorSocialController');
 
 //Solicitud Beca
 Route::resource('solicitud', 'SolicitudBecaController');
+
